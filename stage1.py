@@ -20,14 +20,21 @@ class RDFanalysis:
         global jetFlavourHelper
 
         from config import collections, njets, scenario
+        
         df = df.Alias("Electron0", "Electron#0.index")
         df = df.Alias("Muon0", "Muon#0.index")
+        df = df.Alias("Photon0", "Photon#0.index")
+        
         df = df.Define("electrons", "FCCAnalyses::ReconstructedParticle::get(Electron0, ReconstructedParticles)",)
         df = df.Define("muons", "FCCAnalyses::ReconstructedParticle::get(Muon0, ReconstructedParticles)",)
+        df = df.Define("photons_all", "FCCAnalyses::ReconstructedParticle::get(Photon0, ReconstructedParticles)",)
+        
         df = df.Define("electrons_iso", "FCCAnalyses::ZHfunctions::coneIsolation(0.01, 0.5)(electrons, ReconstructedParticles)",)
         df = df.Define("electrons_sel_iso","FCCAnalyses::ZHfunctions::sel_iso(0.25)(electrons, electrons_iso)",)
+        
         df = df.Define("muons_iso", "FCCAnalyses::ZHfunctions::coneIsolation(0.01, 0.5)(muons, ReconstructedParticles)",)
         df = df.Define("muons_sel_iso","FCCAnalyses::ZHfunctions::sel_iso(0.25)(muons, muons_iso)",)
+        
         df = df.Define("MissingE_4p", "FCCAnalyses::ReconstructedParticle::get_tlv(MissingET)")
 
         df = df.Define("Iso_Electrons_No", "electrons_sel_iso.size()")
@@ -35,9 +42,25 @@ class RDFanalysis:
         df = df.Define("Missing_Pt", "MissingE_4p[0].Pt()",) 
 
         df = df.Filter("Missing_Pt > 3")
+
+        df = df.Define("ReconstructedParticles_nophotons",
+                        "FCCAnalyses::ReconstructedParticle::remove(ReconstructedParticles, photons)",)
+
+        df = df.Define("ReconstructedParticlesNoElectrons",
+                        "FCCAnalyses::ReconstructedParticle::remove(ReconstructedParticles_nophotons,electrons)",)
+
+        df = df.Define("ReconstructedParticlesNoleptonsNoPhotons",
+                        "FCCAnalyses::ReconstructedParticle::remove(ReconstructedParticlesNoElectrons,muons)",)
+
+
+        collections_noleptons_nophotons = copy.deepcopy(collections)
+        
+        collections_noleptons_nophotons["PFParticles"] = "ReconstructedParticlesNoleptonsNoPhotons"
+        
+
         
         ## define jet clustering parameters
-        jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets)
+        jetClusteringHelper = ExclusiveJetClusteringHelper(collections_noleptons_nophotons["PFParticles"], njets)
 
         ## run jet clustering
         df = jetClusteringHelper.define(df)
