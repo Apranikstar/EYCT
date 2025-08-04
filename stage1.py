@@ -80,8 +80,8 @@ class RDFanalysis:
 
         ## compute invariant mass of two leading jets
         df = df.Define("jet_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
-        #df = df.Define("event_invariant_mass", "JetConstituentsUtils::InvariantMass(jet_p4[0], jet_p4[1])")
-        df = df.Define("event_invariant_mass", "jet_p4[0].M()")
+        df = df.Define("event_invariant_mass", "JetConstituentsUtils::InvariantMass(jet_p4[0], jet_p4[1])")
+        #df = df.Define("event_invariant_mass", "jet_p4[0].M()")
         df.Filter("event_invariant_mass > 10")
         
         if scenario == 1:
