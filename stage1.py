@@ -1,3 +1,6 @@
+import os, copy
+
+
 from config import (
     variables_pfcand,
     variables_jet,
