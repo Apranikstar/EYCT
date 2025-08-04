@@ -4,8 +4,8 @@ from config import (
     variables_event,
 )
 
-from addons.ONNXRuntime.jetFlavourHelper import JetFlavourHelper
-from addons.FastJet.jetClusteringHelper import ExclusiveJetClusteringHelper
+from jetFlavourHelper import JetFlavourHelper
+from jetClusteringHelper import ExclusiveJetClusteringHelper
 
 jetFlavourHelper = None
 jetClusteringHelper = None
