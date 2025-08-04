@@ -50,7 +50,7 @@ maxn = 500
 match_flavor = dict()
 for f in flavors:
     match_flavor[f] = False
-    if "H{}{}".format(f, f) in input_file:
+    if "_{}_".format(f) in input_file:
         match_flavor[f] = True
 
 if True in match_flavor.values():
@@ -60,7 +60,7 @@ else:
     print("ERROR: could not infer jet flavor from file name")
     str_err = "ERROR: please provide input file containing: "
     for f in flavors:
-        str_err += "H{}{} ".format(f, f)
+        str_err += "{} ".format(f)
 
 ## output jet-wise tree
 out_root = TFile(output_file, "RECREATE")
@@ -68,7 +68,7 @@ t = TTree("tree", "tree with jets")
 
 jet_array = dict()
 for f in flavors:
-    b = "recojet_is{}".format(f.upper())
+    b = "process_is{}".format(f.upper())
     jet_array[b] = array("i", [0])
     t.Branch(b, jet_array[b], "{}/I".format(b))
 for b in branches_jet:
@@ -107,7 +107,7 @@ for entry in range(n_start, n_final):
 
         ## fill jet-based quantities
         for f in flavors:
-            name = "recojet_is{}".format(f.upper())
+            name = "process_is{}".format(f.upper())
             jet_array[name][0] = int(match_flavor[f])
             if debug:
                 print("   jet:", j, name, jet_array[name][0])
