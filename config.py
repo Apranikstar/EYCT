@@ -7,6 +7,7 @@ this configuration file contains the:
 
 ## number of jets for exclusive clustering
 njets = 1
+scenario = 1 # on-e : 1 | off-e : 2 | on-mu : 3 | off-mu : 4
 
 ## name of collections in EDM root files
 collections = {
