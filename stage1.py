@@ -34,7 +34,7 @@ class RDFanalysis:
         df = df.Define("Iso_Muons_No", "muons_sel_iso.size()")
         df = df.Define("Missing_Pt", "MissingE_4p[0].Pt()",) 
 
-        df.Filter("Missing_Pt > 3")
+        df = df.Filter("Missing_Pt > 3")
         
         ## define jet clustering parameters
         jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets)
@@ -59,17 +59,17 @@ class RDFanalysis:
         df.Filter("event_invariant_mass > 10")
         
         if scenario == 1:
-            df.Filter("Iso_Electrons_No == 1")
-            df.Filter("event_invariant_mass < 43")
+            df = df.Filter("Iso_Electrons_No == 1")
+            df = df.Filter("event_invariant_mass < 43")
         elif scenario == 2:
-            df.Filter("Iso_Electrons_No == 1")
-            df.Filter("event_invariant_mass > 43")
+            df = df.Filter("Iso_Electrons_No == 1")
+            df = df.Filter("event_invariant_mass > 43")
         elif scenario == 3:
-            df.Filter("Iso_Muons_No == 1")
-            df.Filter("event_invariant_mass < 43")
+            df = df.Filter("Iso_Muons_No == 1")
+            df = df.Filter("event_invariant_mass < 43")
         elif scenario == 4:
-            df.Filter("Iso_Muons_No == 1")
-            df.Filter("event_invariant_mass > 43")
+            df = df.Filter("Iso_Muons_No == 1")
+            df = df.Filter("event_invariant_mass > 43")
             
             
             
