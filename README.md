@@ -10,6 +10,12 @@ First set the scenario in the config file:
 `3`  For the $W(\mu\nu)W*(jj)$
 `4`  For the $W(jj)W*(\mu\nu)$
 
+then you can change the output and number of cpus in the `run_all.sh` file.
+```ini
+OUTDIR="./output/"
+NCPUS=8
+```
+
 then simply:
 ```bash
 chmod +x run_all.sh
