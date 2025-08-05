@@ -5,10 +5,10 @@ cd EYCT
 ```
 First set the scenario in the config file:
 
-`1`  For the $W(e\nu)W*(jj)$
-`2`  For the $W(jj)W*(e\nu)$
-`3`  For the $W(\mu\nu)W*(jj)$
-`4`  For the $W(jj)W*(\mu\nu)$
+` `1`  For the $W(e\nu)W^*(jj)$
+` `2`  For the $W(jj)W^*(e\nu)$
+` `3`  For the $W(\mu\nu)W^*(jj)$
+` `4`  For the $W(jj)W*^(\mu\nu)$
 
 then you can change the output and number of cpus in the `run_all.sh` file.
 ```ini
